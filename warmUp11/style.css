@@ -1,0 +1,21 @@
+ul {
+	display: inline;
+}
+
+#d2 {
+	float: right;
+}
+
+.mainD{
+	height: 300px;
+	width: 300px;
+	margin: 40px;
+}
+#left {
+	background-color: cyan;
+	color: red;
+}
+#right {
+	background-color: blue;
+	color: orange;
+}
