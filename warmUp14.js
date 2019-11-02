@@ -20,36 +20,45 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 */
 
 var maxProfit = function(prices) {
-	var buyingPrice = prices[0];
-	var maxProfit = 0;
-	// this loop is to identify the minimum buying price;
-	for (var i = 0; i < prices.length; i++) {
-		if (buyingPrice > prices[i]) {
-			buyingPrice = prices[i];
-		}
-		
-	}
-	// this loop is to identify the maximum selling price starting from the index after the minimum buying price;
-	var sellingPrice = prices[prices.indexOf(buyingPrice) + 1];
 	
-	for (var i = prices.indexOf(buyingPrice) + 1; i < prices.length; i++) {
-		if (sellingPrice < prices[i]) {
-			sellingPrice = prices[i];
+	var profitsArray = [];
+	while(prices.length !== 0) {
+		var buyingPrice = prices[0];
+		var maxProfit = 0;
+		// this loop is to identify the minimum buying price;
+		for (var i = 0; i < prices.length; i++) {
+			if (buyingPrice > prices[i]) {
+				buyingPrice = prices[i];
+			}
+			
 		}
-	}
-	// if the either the selling price or the buying price is undefined meaning that theere is no selling price or the array is not numbers,
-	// return 0
+		// this loop is to identify the maximum selling price starting from the index after the minimum buying price;
+		var sellingPrice = prices[prices.indexOf(buyingPrice) + 1];
+		
+		for (var i = prices.indexOf(buyingPrice) + 1; i < prices.length; i++) {
+			if (sellingPrice < prices[i]) {
+				sellingPrice = prices[i];
+			}
+		}
+		// if the either the selling price or the buying price is undefined meaning that theere is no selling price or the array is not numbers,
+		// return 0
 
-	if (sellingPrice === undefined || buyingPrice === undefined) {
-		return maxProfit; // returns 0
-	}
-	// calcaulates the max profit
-	maxProfit = sellingPrice - buyingPrice;
+		if (sellingPrice === undefined || buyingPrice === undefined) {
+		   break; // returns 0
+		}
+		// calcaulates the max profit
 
-	// if the maxProfit is negative that means you are actually losing not profiting if you bought the stock, if not; returns it;
-	if (maxProfit <= 0) {
-		return 0;
+		maxProfit = sellingPrice - buyingPrice;
+
+		// if the maxProfit is negative that means you are actually losing not profiting if you bought the stock, if not; returns it;
+		if (maxProfit <= 0) {
+			maxProfit = 0;
+		}
+		profitsArray.push(maxProfit);
+		prices.splice(prices.indexOf(buyingPrice), 1);
 	}
 
-	return maxProfit;
+	return profitsArray.reduce(function(a, b) {
+   	 	return Math.max(a, b);
+	});
 };
