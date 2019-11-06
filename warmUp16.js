@@ -23,37 +23,37 @@ function ballon(text) {
 
 	var ballonCount = 0;
 
-	
+	if(text.length >= 1 && text.length <= 10000) {
+
 		for (var i in text) {
-		var char = text[i];
-		ballonObjectArray.forEach( function(element){
-			if (element['char'] === char) {
-				element['count'] += 1;
-			}
+			var char = text[i];
+			ballonObjectArray.forEach( function(element){
+				if (element['char'] === char) {
+					element['count'] += 1;
+				}
+			});
+		}
+
+		ballonObjectArray.forEach(function(element){
+				if (element['char'] === 'b' || element['char'] === 'a' || element['char'] === 'n') {
+					while(element['count'] > 0) {
+						element['ballonCount'] += 1;
+						element['count'] -= 1;
+						ballonCount +=1;
+					}
+				}
+		});
+		ballonObjectArray.forEach(function(element){
+				if (element['char'] === 'l' || element['char'] === 'o') {
+				
+					while(element['count'] > 0) {
+						element['ballonCount'] += 1;
+						element['count'] -= 2;
+						ballonCount += 1;
+					}
+				}
 		});
 	}
-	
-	ballonObjectArray.forEach(function(element){
-			if (element['char'] === 'b' || element['char'] === 'a' || element['char'] === 'n') {
-				while(element['count'] > 0) {
-					element['ballonCount'] += 1;
-					element['count'] -= 1;
-				}
-			}
-	});
-	ballonObjectArray.forEach(function(element){
-			if (element['char'] === 'l' || element['char'] === 'o') {
-			
-				while(element['count'] > 0) {
-					element['ballonCount'] += 1;
-					element['count'] -= 2;
-				}
-			}
-	});
-	ballonObjectArray.forEach(function(element){
-		while(element[ballonCount] > 0)
-			element[ballonCount] -+ 1;
-		    ballonCount += 1;
-	})
+	ballonCount = Math.floor(ballonCount / 5);
 	return ballonCount;
 }
