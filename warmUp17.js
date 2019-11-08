@@ -30,21 +30,23 @@
 // ​
 // ​
 var calculateTime = function(keyboard, word) {
-	var charIndexesArray = [];
-	var keyboardArray = keyboard.split('');
-	var wordArray = word.split('');
-	wordArray.forEach(function(element, index){
-		charIndexesArray.push(keyboardArray.indexOf(element));
-	});
-	var time = charIndexesArray[0]; // adding the time of travel of the first letter
-	// adding the time of travel between the chars
-	for (var i = 0; i < charIndexesArray.length - 1; i++) {
-		for (var j = i + 1; j < i + 2; j++) {
-			time += positify(charIndexesArray[i] - charIndexesArray[j]);
+	if (keyboard.length === 26 && word.length >= 1 && word.length <= 10000 ) {
+		var charIndexesArray = [];
+		var keyboardArray = keyboard.split('');
+		var wordArray = word.split('');
+		wordArray.forEach(function(element, index){
+			charIndexesArray.push(keyboardArray.indexOf(element));
+		});
+		var time = charIndexesArray[0]; // adding the time of travel of the first letter
+		// adding the time of travel between the chars
+		for (var i = 0; i < charIndexesArray.length - 1; i++) {
+			for (var j = i + 1; j < i + 2; j++) {
+				time += positify(charIndexesArray[i] - charIndexesArray[j]);
+			}
 		}
-	}
 
-	return time;
+		return time;
+	}
 };
 
 // a fucntion to return a poitive number between the addition of indexes
